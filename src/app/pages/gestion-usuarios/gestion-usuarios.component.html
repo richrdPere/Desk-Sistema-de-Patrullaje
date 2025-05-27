@@ -1,12 +1,140 @@
-<div class="p-4 space-y-6">
+<div class="space-y-4">
   <!-- Header -->
-  <div class="flex justify-between items-center mb-4">
-    <h1 class="text-2xl font-bold">All Users</h1>
-    <button class="btn btn-primary">+ Add new user</button>
+  <div class="flex justify-between items-center mb-4 text-gray-800">
+    <h1 class="text-2xl font-bold">Gestión de Usuarios</h1>
+    <button class="btn btn-primary" onclick="my_modal_1.showModal()">
+      + Agregar nuevo usuario
+    </button>
   </div>
 
+  <dialog id="my_modal_1" class="modal">
+  <div class="modal-box text-white bg-gray-800">
+    <h3 class="text-xl font-bold mb-4">Registro de Usuario</h3>
+
+    <!-- Sección: Datos -->
+    <div class="mb-6">
+      <h4 class="text-lg font-semibold mb-3 text-blue-400">Datos Personales</h4>
+      <div class="flex flex-wrap gap-4">
+        <!-- Nombres -->
+        <div class="w-full md:w-[48%]">
+          <label for="nombres" class="block text-sm font-medium text-gray-300">Nombres</label>
+          <input
+            id="nombres"
+            name="nombres"
+            type="text"
+            placeholder="Juan Carlos"
+            class="input input-bordered w-full mt-1"
+          />
+        </div>
+        <!-- Apellidos -->
+        <div class="w-full md:w-[48%]">
+          <label for="apellidos" class="block text-sm font-medium text-gray-300">Apellidos</label>
+          <input
+            id="apellidos"
+            name="apellidos"
+            type="text"
+            placeholder="Pérez Gómez"
+            class="input input-bordered w-full mt-1"
+          />
+        </div>
+        <!-- DNI -->
+        <div class="w-full md:w-[48%]">
+          <label for="dni" class="block text-sm font-medium text-gray-300">DNI</label>
+          <input
+            id="dni"
+            name="dni"
+            type="text"
+            placeholder="12345678"
+            class="input input-bordered w-full mt-1"
+          />
+        </div>
+        <!-- Celular -->
+        <div class="w-full md:w-[48%]">
+          <label for="celular" class="block text-sm font-medium text-gray-300">Celular</label>
+          <input
+            id="celular"
+            name="celular"
+            type="text"
+            placeholder="987654321"
+            class="input input-bordered w-full mt-1"
+          />
+        </div>
+        <!-- Fecha de nacimiento -->
+        <div class="w-full md:w-[48%]">
+          <label for="fecha_nacimiento" class="block text-sm font-medium text-gray-300">Fecha de Nacimiento</label>
+          <input
+            id="fecha_nacimiento"
+            name="fecha_nacimiento"
+            type="date"
+            class="input input-bordered w-full mt-1"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección: Cuenta -->
+    <div class="mb-6">
+      <h4 class="text-lg font-semibold mb-3 text-orange-400">Datos de la Cuenta</h4>
+      <div class="flex flex-wrap gap-4">
+        <!-- Email -->
+        <div class="w-full md:w-[48%]">
+          <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="usuario@correo.com"
+            class="input input-bordered w-full mt-1"
+          />
+        </div>
+        <!-- Username -->
+        <div class="w-full md:w-[48%]">
+          <label for="username" class="block text-sm font-medium text-gray-300">Usuario</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="usuario123"
+            class="input input-bordered w-full mt-1"
+          />
+        </div>
+        <!-- Password -->
+        <div class="w-full md:w-[48%]">
+          <label for="password" class="block text-sm font-medium text-gray-300">Contraseña</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="••••••••"
+            class="input input-bordered w-full mt-1"
+          />
+        </div>
+        <!-- Confirmación -->
+        <div class="w-full md:w-[48%]">
+          <label for="password_confirmation" class="block text-sm font-medium text-gray-300">Confirmar Contraseña</label>
+          <input
+            id="password_confirmation"
+            name="password_confirmation"
+            type="password"
+            placeholder="••••••••"
+            class="input input-bordered w-full mt-1"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="modal-action flex justify-end gap-4">
+      <button class="btn btn-primary">Crear cuenta</button>
+      <form method="dialog">
+        <button class="btn btn-outline">Cerrar</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
   <!-- Filters -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4 text-white">
     <select class="select select-bordered w-full">
       <option selected>Viewer</option>
       <option>Moderator</option>
@@ -17,28 +145,20 @@
       <option>Active</option>
       <option>Inactive</option>
     </select>
-    <select class="select select-bordered w-full">
-      <option selected>Rating</option>
-    </select>
-    <select class="select select-bordered w-full">
-      <option selected>Country</option>
-      <option>United States</option>
-      <option>France</option>
-      <option>Canada</option>
-    </select>
   </div>
 
+  <hr class="border-gray-500" />
+
   <!-- Table -->
-  <div class="overflow-x-auto">
-    <table class="table table-zebra w-full">
+  <div
+    class="overflow-x-auto bg-gray-900 w-full sm:min-h-[300px] md:min-h-[450px] xl:min-h-[750px] rounded-2xl"
+  >
+    <table class="table text-white">
       <thead>
         <tr>
           <th></th>
           <th>User Role</th>
           <th>Email</th>
-          <th>Account Type</th>
-          <th>Rating</th>
-          <th>Country</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>
@@ -49,8 +169,11 @@
           <td>
             <div class="flex items-center gap-3">
               <div class="avatar">
-                <div class="w-8 rounded-full">
-                  <img src="https://i.pravatar.cc/40?img=1" />
+                <div class="mask mask-squircle h-12 w-12">
+                  <img
+                    src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                    alt="Avatar Tailwind CSS Component"
+                  />
                 </div>
               </div>
               <div>
@@ -60,53 +183,49 @@
             </div>
           </td>
           <td>jeseAexample.com</td>
-          <td>PRO</td>
-          <td class="text-green-500">4.7</td>
-          <td>United States</td>
+
           <td><span class="badge badge-success">Active</span></td>
           <td><button class="btn btn-ghost btn-sm">•••</button></td>
         </tr>
+
         <tr>
           <td><input type="checkbox" class="checkbox" /></td>
           <td>
             <div class="flex items-center gap-3">
               <div class="avatar">
-                <div class="w-8 rounded-full">
+                <div class="mask mask-squircle h-12 w-12">
                   <img src="https://i.pravatar.cc/40?img=2" />
                 </div>
               </div>
               <div>
                 <div class="font-bold">Bonnie Green</div>
-                <span class="badge badge-neutral">Viewer</span>
+                <span class="badge badge-neutral">Sereno</span>
               </div>
             </div>
           </td>
           <td>bonnieAexample.com</td>
-          <td>PRO</td>
-          <td class="text-red-500">3.9</td>
-          <td>United States</td>
+
           <td><span class="badge badge-success">Active</span></td>
           <td><button class="btn btn-ghost btn-sm">•••</button></td>
         </tr>
+
         <tr>
           <td><input type="checkbox" class="checkbox" /></td>
           <td>
             <div class="flex items-center gap-3">
               <div class="avatar">
-                <div class="w-8 rounded-full">
+                <div class="mask mask-squircle h-12 w-12">
                   <img src="https://i.pravatar.cc/40?img=3" />
                 </div>
               </div>
               <div>
                 <div class="font-bold">Leslie Livingston</div>
-                <span class="badge badge-secondary">Moderator</span>
+                <span class="badge badge-secondary">Operador</span>
               </div>
             </div>
           </td>
           <td>leslieAexample.com</td>
-          <td>PRO</td>
-          <td class="text-green-500">4.8</td>
-          <td>United States</td>
+
           <td><span class="badge badge-error">Inactive</span></td>
           <td><button class="btn btn-ghost btn-sm">•••</button></td>
         </tr>
@@ -120,5 +239,4 @@
     <button class="btn btn-outline btn-info">Download CSV</button>
     <p class="text-sm text-gray-400">Total users: 1867</p>
   </div>
-
 </div>
