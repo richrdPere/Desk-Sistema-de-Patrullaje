@@ -3,10 +3,9 @@ import { SideMenuHeaderComponent } from "./side-menu-header/side-menu-header.com
 import { SideMenuOptionsComponent } from "./side-menu-options/side-menu-options.component";
 
 @Component({
-  selector: 'dashboard-side-menu',
+  selector: 'side-menu',
   imports: [SideMenuHeaderComponent, SideMenuOptionsComponent],
   templateUrl: './side-menu.component.html',
-})
-export class SideMenuComponent {
 
-}
+})
+export class SideMenuComponent { }

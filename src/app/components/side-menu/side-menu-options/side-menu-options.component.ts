@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 interface MenuOptions {
   icon: string;
@@ -9,16 +9,24 @@ interface MenuOptions {
 }
 
 @Component({
-  selector: 'dashboard-side-menu-options',
+  selector: 'side-menu-options',
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './side-menu-options.component.html',
 })
 export class SideMenuOptionsComponent {
+
+  constructor(private router: Router) { }
+
   menuOptions: MenuOptions[] = [
     {
-      //icon: 'fa-solid fa-qrcode',
+      icon: 'fa-solid fa-map-location-dot',
+      label: 'Mapa',
+      sublabel: 'Accede al mapa en tiempo real',
+      route: '/dashboard/mapa_patrullaje',
+    },
+    {
       icon: 'fa-solid fa-folder',
-      label: 'Panel',
+      label: 'Panel de Control',
       sublabel: 'Resumen de las actividades realizadas',
       route: '/dashboard/panel',
     },
@@ -29,23 +37,32 @@ export class SideMenuOptionsComponent {
       route: '/dashboard/usuarios',
     },
     {
-      icon: 'fa-solid fa-map-location-dot',
-      label: 'Mapa',
-      sublabel: 'Accede al mapa en tiempo real',
-      route: '/dashboard/mapa_patrullaje',
-    },
-    {
       icon: 'fa-solid fa-car-side',
       label: 'Zonas de Patrullaje',
       sublabel: 'Gestióna zonas de patrullaje',
       route: '/dashboard/zonas_patrullaje',
     },
     {
-      //icon: 'fa-solid fa-file',
       icon: 'fa-solid fa-chart-line',
       label: 'Reportes',
       sublabel: 'Reporta los avances del dia',
       route: '/dashboard/reportes',
     },
+    {
+      icon: 'fa-solid fa-comment',
+      label: 'Chats',
+      sublabel: 'Conversa y asigna acciones a los serenos u otros operadores',
+      route: '/dashboard/chats',
+    },
+    {
+      icon: 'fa-solid fa-calendar-days',
+      label: 'Calendario',
+      sublabel: 'Calendario de actividades',
+      route: '/dashboard/calendario',
+    },
   ];
+
+  logout() {
+    this.router.navigate(['/login']);
+  }
 }

@@ -1,0 +1,62 @@
+<div class="flex flex-col md:flex-row h-screen bg-base-200">
+  <!-- Lista de usuarios -->
+  <aside class="w-full md:w-1/3 lg:w-1/4 bg-white border-r shadow md:h-full overflow-y-auto">
+    <div class="p-4">
+      <h2 class="text-xl font-bold text-primary">Conversaciones</h2>
+    </div>
+    <ul class="menu">
+      <li><a class="hover:bg-base-100">👮‍♂️ Supervisor Luis</a></li>
+      <li><a class="hover:bg-base-100">🚓 Sereno Marco</a></li>
+      <li><a class="hover:bg-base-100">👮‍♀️ Supervisor Carla</a></li>
+    </ul>
+  </aside>
+
+  <!-- Chat principal -->
+  <main class="flex-1 flex flex-col h-full">
+    <!-- Cabecera del chat -->
+    <div class="bg-white border-b p-4 flex items-center justify-between shadow">
+      <div class="flex items-center gap-3">
+        <div class="avatar online">
+          <div class="w-10 rounded-full">
+            <img src="https://i.pravatar.cc/100?img=3" />
+          </div>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg">Sereno Marco</h3>
+          <p class="text-sm text-success">En línea</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensajes -->
+    <div class="flex-1 overflow-y-auto p-4 space-y-4 bg-base-100">
+      <!-- Mensaje recibido -->
+      <div class="chat chat-start">
+        <div class="chat-image avatar">
+          <div class="w-8 rounded-full">
+            <img src="https://i.pravatar.cc/100?img=3" />
+          </div>
+        </div>
+        <div class="chat-bubble bg-gray-200 text-gray-800">Reporte enviado desde la zona A.</div>
+        <div class="chat-footer opacity-50 text-xs">15:43</div>
+      </div>
+
+      <!-- Mensaje enviado -->
+      <div class="chat chat-end">
+        <div class="chat-bubble chat-bubble-primary text-white">Recibido. Continúe patrullando.</div>
+        <div class="chat-footer opacity-50 text-xs">15:44</div>
+      </div>
+    </div>
+
+    <!-- Input de mensaje -->
+    <form class="p-4 bg-white border-t flex items-center gap-2">
+      <input
+        type="text"
+        placeholder="Escribe tu mensaje..."
+        class="input input-bordered w-full"
+      />
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </main>
+</div>
+

@@ -1,1 +1,94 @@
-<p>zonas-patrullajese works!</p>
+<div class="p-4 space-y-6">
+  <!-- Título -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <h2 class="text-2xl font-bold text-gray-800">Asignación de Rutas de Patrullaje</h2>
+    <button class="btn btn-primary">Ver Historial</button>
+  </div>
+
+  <!-- Formulario -->
+  <div class="card bg-base-100 shadow-md p-6 space-y-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Sereno -->
+      <div>
+        <label class="label">
+          <span class="label-text font-medium">Seleccionar Sereno</span>
+        </label>
+        <select class="select select-bordered w-full">
+          <option disabled selected>Elegir sereno</option>
+          <option>Juan Pérez</option>
+          <option>Lucía Vargas</option>
+          <option>Mario Gutiérrez</option>
+        </select>
+      </div>
+
+      <!-- Zona de Patrullaje -->
+      <div>
+        <label class="label">
+          <span class="label-text font-medium">Zona de Patrullaje</span>
+        </label>
+        <select class="select select-bordered w-full">
+          <option disabled selected>Seleccionar zona</option>
+          <option>Zona Norte</option>
+          <option>Zona Centro</option>
+          <option>Zona Sur</option>
+        </select>
+      </div>
+
+      <!-- Turno -->
+      <div>
+        <label class="label">
+          <span class="label-text font-medium">Turno</span>
+        </label>
+        <select class="select select-bordered w-full">
+          <option disabled selected>Seleccionar turno</option>
+          <option>Turno Mañana (06:00 - 14:00)</option>
+          <option>Turno Tarde (14:00 - 22:00)</option>
+          <option>Turno Noche (22:00 - 06:00)</option>
+        </select>
+      </div>
+
+      <!-- Fecha -->
+      <div>
+        <label class="label">
+          <span class="label-text font-medium">Fecha de Asignación</span>
+        </label>
+        <input type="date" class="input input-bordered w-full" />
+      </div>
+    </div>
+
+    <!-- Botón Asignar -->
+    <div class="pt-4">
+      <button class="btn btn-success w-full md:w-auto">
+        <i class="fas fa-check mr-2"></i> Asignar Ruta
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla de asignaciones actuales -->
+  <div class="overflow-x-auto">
+    <h3 class="text-lg font-semibold mb-2">Asignaciones Actuales</h3>
+    <table class="table table-zebra w-full text-sm">
+      <thead>
+        <tr>
+          <th>Sereno</th>
+          <th>Zona</th>
+          <th>Turno</th>
+          <th>Fecha</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Juan Pérez</td>
+          <td>Zona Centro</td>
+          <td>Mañana</td>
+          <td>2025-05-25</td>
+          <td>
+            <button class="btn btn-xs btn-error">Eliminar</button>
+          </td>
+        </tr>
+        <!-- Más filas dinámicamente -->
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="p-6 space-y-6">
+  <h2 class="text-2xl font-bold text-primary">Gestión de Zonas de Patrullaje</h2>
+
+  <!-- Formulario de Registro -->
+  <form class="card bg-base-100 shadow p-6 space-y-4">
+    <div class="grid md:grid-cols-2 gap-4">
+      <input type="text" placeholder="Nombre de la Zona" class="input input-bordered w-full" />
+      <input type="text" placeholder="Distrito o Sector" class="input input-bordered w-full" />
+      <textarea placeholder="Descripción" class="textarea textarea-bordered md:col-span-2"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar Zona</button>
+  </form>
+
+  <!-- Tabla de Zonas -->
+  <div class="overflow-x-auto">
+    <table class="table table-zebra w-full">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Distrito</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Reemplazar con datos reales -->
+        <tr>
+          <td>Zona Centro</td>
+          <td>Cusco</td>
+          <td>Área central patrullada las 24h</td>
+          <td class="flex gap-2">
+            <button class="btn btn-sm btn-warning">Editar</button>
+            <button class="btn btn-sm btn-error">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

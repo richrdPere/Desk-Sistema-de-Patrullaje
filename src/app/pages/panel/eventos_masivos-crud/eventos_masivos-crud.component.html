@@ -1,0 +1,39 @@
+<div class="p-6 space-y-6">
+  <h2 class="text-2xl font-bold text-warning">Gestión de Eventos Masivos</h2>
+
+  <!-- Formulario -->
+  <form class="card bg-base-100 shadow p-6 space-y-4">
+    <div class="grid md:grid-cols-2 gap-4">
+      <input type="text" placeholder="Nombre del Evento" class="input input-bordered w-full" />
+      <input type="datetime-local" class="input input-bordered w-full" />
+      <input type="text" placeholder="Ubicación" class="input input-bordered w-full" />
+      <textarea placeholder="Detalles / Observaciones" class="textarea textarea-bordered md:col-span-2"></textarea>
+    </div>
+    <button type="submit" class="btn btn-warning">Registrar Evento</button>
+  </form>
+
+  <!-- Tabla -->
+  <div class="overflow-x-auto">
+    <table class="table table-zebra w-full">
+      <thead>
+        <tr>
+          <th>Evento</th>
+          <th>Fecha</th>
+          <th>Ubicación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Procesión Señor de los Temblores</td>
+          <td>2025-05-29 16:00</td>
+          <td>Centro Histórico</td>
+          <td class="flex gap-2">
+            <button class="btn btn-sm btn-warning">Editar</button>
+            <button class="btn btn-sm btn-error">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

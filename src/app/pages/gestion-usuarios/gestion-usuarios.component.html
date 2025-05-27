@@ -1,1 +1,124 @@
-<p>gestion-usuarios works!</p>
+<div class="p-4 space-y-6">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-2xl font-bold">All Users</h1>
+    <button class="btn btn-primary">+ Add new user</button>
+  </div>
+
+  <!-- Filters -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4">
+    <select class="select select-bordered w-full">
+      <option selected>Viewer</option>
+      <option>Moderator</option>
+      <option>Administrator</option>
+    </select>
+    <select class="select select-bordered w-full">
+      <option selected>Status</option>
+      <option>Active</option>
+      <option>Inactive</option>
+    </select>
+    <select class="select select-bordered w-full">
+      <option selected>Rating</option>
+    </select>
+    <select class="select select-bordered w-full">
+      <option selected>Country</option>
+      <option>United States</option>
+      <option>France</option>
+      <option>Canada</option>
+    </select>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="table table-zebra w-full">
+      <thead>
+        <tr>
+          <th></th>
+          <th>User Role</th>
+          <th>Email</th>
+          <th>Account Type</th>
+          <th>Rating</th>
+          <th>Country</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox" class="checkbox" /></td>
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="w-8 rounded-full">
+                  <img src="https://i.pravatar.cc/40?img=1" />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Jese Leos</div>
+                <span class="badge badge-info text-white">Administrator</span>
+              </div>
+            </div>
+          </td>
+          <td>jeseAexample.com</td>
+          <td>PRO</td>
+          <td class="text-green-500">4.7</td>
+          <td>United States</td>
+          <td><span class="badge badge-success">Active</span></td>
+          <td><button class="btn btn-ghost btn-sm">•••</button></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="checkbox" /></td>
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="w-8 rounded-full">
+                  <img src="https://i.pravatar.cc/40?img=2" />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Bonnie Green</div>
+                <span class="badge badge-neutral">Viewer</span>
+              </div>
+            </div>
+          </td>
+          <td>bonnieAexample.com</td>
+          <td>PRO</td>
+          <td class="text-red-500">3.9</td>
+          <td>United States</td>
+          <td><span class="badge badge-success">Active</span></td>
+          <td><button class="btn btn-ghost btn-sm">•••</button></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" class="checkbox" /></td>
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar">
+                <div class="w-8 rounded-full">
+                  <img src="https://i.pravatar.cc/40?img=3" />
+                </div>
+              </div>
+              <div>
+                <div class="font-bold">Leslie Livingston</div>
+                <span class="badge badge-secondary">Moderator</span>
+              </div>
+            </div>
+          </td>
+          <td>leslieAexample.com</td>
+          <td>PRO</td>
+          <td class="text-green-500">4.8</td>
+          <td>United States</td>
+          <td><span class="badge badge-error">Inactive</span></td>
+          <td><button class="btn btn-ghost btn-sm">•••</button></td>
+        </tr>
+        <!-- Agrega más filas según lo necesites -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <div class="flex justify-between items-center mt-4">
+    <button class="btn btn-outline btn-info">Download CSV</button>
+    <p class="text-sm text-gray-400">Total users: 1867</p>
+  </div>
+
+</div>

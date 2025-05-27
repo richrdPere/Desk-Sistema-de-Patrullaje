@@ -1,1 +1,69 @@
-<p>panel works!</p>
+<div class="space-y-2">
+  <h1 class="text-2xl font-bold text-gray-800">Panel de Control</h1>
+  <p class="text-gray-600">Accede rápidamente a la gestión del sistema de patrullaje.</p>
+  <hr class="border-gray-300" />
+
+  <!-- Grid de Tarjetas -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    @for (item of menuOptions; track item.route) {
+    <a [routerLink]="item.route" routerLinkActive="bg-indigo-800"
+      class="group card bg-base-300 shadow-md transition-transform transform hover:scale-105 hover:shadow-lg cursor-pointer border">
+      <div class="card-body">
+        <h2 class="card-title text-primary">{{item.label}}</h2>
+        <p class="text-white">{{item.sublabel}}</p>
+        <div class="mt-4 flex items-center justify-between text-sm text-gray-600 group-hover:text-primary">
+          <span>Ir al módulo</span>
+          <i [class]="item.icon"></i>
+        </div>
+      </div>
+
+
+      <!-- <div class="h-5 w-5 mr-3">
+        <i [class]="item.icon"></i>
+      </div>
+      {{item.label}} -->
+    </a>
+    }
+
+    <!-- Tarjeta: Zonas de Patrullaje -->
+    <!-- <a href="/zonas-patrullaje"
+      class="group card bg-base-100 shadow-md transition-transform transform hover:scale-105 hover:shadow-lg cursor-pointer border">
+      <div class="card-body">
+        <h2 class="card-title text-primary">Zonas de Patrullaje</h2>
+        <p>Ver y gestionar zonas asignadas a patrullas.</p>
+        <div class="mt-4 flex items-center justify-between text-sm text-gray-600 group-hover:text-primary">
+          <span>Ir al módulo</span>
+          <i class="fas fa-map-marked-alt text-lg"></i>
+        </div>
+      </div>
+    </a> -->
+
+    <!-- Tarjeta: Vehículos -->
+    <!-- <a href="/vehiculos"
+      class="group card bg-base-100 shadow-md transition-transform transform hover:scale-105 hover:shadow-lg cursor-pointer border">
+      <div class="card-body">
+        <h2 class="card-title text-success">Vehículos de Patrullaje</h2>
+        <p>Registrar, editar y asignar vehículos a rutas.</p>
+        <div class="mt-4 flex items-center justify-between text-sm text-gray-600 group-hover:text-success">
+          <span>Ir al módulo</span>
+          <i class="fas fa-car text-lg"></i>
+        </div>
+      </div>
+    </a> -->
+
+    <!-- Tarjeta: Eventos Masivos -->
+    <!-- <a href="/eventos-masivos"
+      class="group card bg-base-100 shadow-md transition-transform transform hover:scale-105 hover:shadow-lg cursor-pointer border">
+      <div class="card-body">
+        <h2 class="card-title text-warning">Eventos Masivos</h2>
+        <p>Informar a la central sobre eventos que requieren presencia policial.</p>
+        <div class="mt-4 flex items-center justify-between text-sm text-gray-600 group-hover:text-warning">
+          <span>Ir al módulo</span>
+          <i class="fas fa-bullhorn text-lg"></i>
+        </div>
+      </div>
+    </a> -->
+
+  </div>
+</div>

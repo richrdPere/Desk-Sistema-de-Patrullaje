@@ -10,7 +10,8 @@ app.on('ready', () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'), // Carga el script preload
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      webSecurity: false //  necesario para evitar bloqueos con recursos remotos como Google Maps
     }
   });
 

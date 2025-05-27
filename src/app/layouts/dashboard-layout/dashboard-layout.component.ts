@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { SideMenuComponent } from "../../components/side-menu/side-menu.component";
 import { NavbarMenuComponent } from "../../components/navbar-menu/navbar-menu.component";
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-dashboard-layout',
   imports: [RouterOutlet, SideMenuComponent, NavbarMenuComponent],
-  templateUrl: './dashboard.component.html',
+  templateUrl: './dashboard-layout.component.html',
 })
-export default class DashboardComponent {
-  title = 'front-sist-misional';
-
-}
+export default class DashboardLayoutComponent { }

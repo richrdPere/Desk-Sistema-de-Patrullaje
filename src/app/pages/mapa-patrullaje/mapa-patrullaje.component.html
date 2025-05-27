@@ -1,1 +1,19 @@
-<p>mapa-patrullaje works!</p>
+<div class="space-y-4">
+  <h1 class="text-2xl font-bold text-gray-800">Mapa</h1>
+  <hr class="border-gray-300" />
+
+  <div class="w-full relative border rounded-xl shadow bg-white min-h-[300px] md:min-h-[500px] xl:min-h-[750px] overflow-hidden" >
+
+    <!-- Spinner de carga -->
+    @if (!mapaCargado) {
+      <div class="absolute inset-0 flex flex-col items-center justify-center bg-white/70 z-10">
+        <span class="loading loading-spinner text-primary w-10 h-10 mb-2"></span>
+        <span class="text-primary font-semibold">Cargando mapa...</span>
+      </div>
+    }
+
+    <!-- Contenedor del mapa -->
+    <div #map class="absolute inset-0 w-full h-full z-0"></div>
+
+  </div>
+</div>
