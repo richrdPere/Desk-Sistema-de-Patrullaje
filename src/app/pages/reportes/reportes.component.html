@@ -1,1 +1,50 @@
-<p>reportes works!</p>
+<div class="space-y-4">
+
+  <h1 class="text-2xl font-bold text-gray-800">Listado de Incidentes</h1>
+
+  <hr class="border-gray-300" />
+
+  <div class="p-4  min-h-[calc(100vh-15rem)] lg:min-h-[calc(100vh-16rem)]">
+    @if (!loading) {
+    <table class="table table-bordered table-striped">
+
+
+      <thead class="thead-dark text-black">
+        <tr>
+          <th>Descripción</th>
+          <th>Tipo</th>
+          <th>Estado</th>
+          <th>Prioridad</th>
+          <th>Dirección</th>
+          <th>Fecha</th>
+          <th>Detalles</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (incident of incidents; track $index) {
+        <tr>
+          <td>{{ incident.descripcion }}</td>
+          <td>{{ incident.tipo }}</td>
+          <td>{{ incident.estado }}</td>
+          <td>{{ incident.prioridad }}</td>
+          <td>{{ incident.ubicacion?.direccion }}</td>
+          <td>{{ incident.fecha | date:'short' }}</td>
+        </tr>
+        }
+
+      </tbody>
+    </table>
+    }
+    @else {
+    <div class="text-center">
+      <span class="spinner-border"></span>
+      <p>Cargando incidentes...</p>
+    </div>
+    }
+  </div>
+
+
+
+
+
+</div>

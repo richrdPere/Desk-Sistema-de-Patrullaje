@@ -1,0 +1,155 @@
+<!-- Table -->
+<div class="relative overflow-x-auto bg-gray-900 w-full sm:min-h-[300px] md:min-h-[450px] xl:min-h-[750px] rounded-2xl">
+  <table class="table text-white">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Datos del Sereno</th>
+        <th>Email</th>
+        <th>DNI</th>
+        <th>Estado</th>
+        <th>Cuenta</th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (sereno of paginatedSerenos; track $index) {
+      <tr>
+        <td scope="row">{{ $index + 1 }}</td>
+        <td>
+          <div class="flex items-center gap-3">
+            <div class="avatar">
+              <div class="mask mask-squircle h-12 w-12">
+                <img [src]="sereno.avatar || 'assets/img/default-avatar.png'" alt="Avatar del sereno" />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">{{sereno.firstName +' '}} <span class="text-blue-400">{{ sereno.lastName}}</span>
+              </div>
+              <span class="badge badge-info text-white">{{sereno.role}}</span>
+            </div>
+          </div>
+        </td>
+        <td>{{sereno.email}}</td>
+
+        <td>{{sereno.dni}}</td>
+
+        <td>
+          <!-- <span class="badge badge-success">{{sereno.estado}}</span> -->
+          @if (sereno.estado == 'Disponible') {
+          <span class="badge badge-success">Disponible</span>
+          }
+          @else {
+          <span class="badge badge-warning">Asignado</span>
+          }
+
+        </td>
+
+        <td>
+
+          @if (sereno.active) {
+          <span class="badge badge-success">Activa</span>
+          }
+          @else {
+          <span class="badge badge-error">Desactivada</span>
+          }
+        </td>
+
+
+        <td class="flex justify-start items-center gap-2">
+          <!-- <input type="checkbox" value="synthwave"
+            class="toggle theme-controller +-------start-1 border-white bg-amber-300 [--tglbg:var(--color-sky-500)] checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:var(--color-blue-900)]"
+            /> -->
+
+          <label class="flex items-center gap-2">
+            <input type="checkbox" class="toggle border-2 w-14 h-7 rounded-full transition duration-300"
+              [checked]="sereno.active" (change)="toggleEstadoSereno(sereno)" [class]="{
+           'bg-green-500 border-green-600': sereno.active,
+           'bg-red-500 border-red-600': !sereno.active
+      }" />
+            <!-- <span class="text-sm font-medium"
+              [class]="{ 'text-green-500': sereno.active, 'text-red-500': !sereno.active }">
+              {{ sereno.active ? 'Activo' : 'Inactivo' }}
+            </span> -->
+          </label>
+
+          <button class="btn btn-xs btn-info" (click)="verSereno(sereno)">
+            <img src="assets/icons/crud/search.svg" alt="Icon Eliminar" class="w-5 h-5 " />
+          </button>
+
+          <button class="btn btn-xs btn-warning" (click)="editarSereno(sereno)">
+            <img src="assets/icons/crud/edit.svg" alt="Icon Eliminar" class="w-5 h-5 " />
+          </button>
+
+          <button class="btn btn-xs btn-error" (click)="eliminarSereno(sereno.id)">
+            <img src="assets/icons/crud/delete.svg" alt="Icon Eliminar" class="w-5 h-5 " />
+          </button>
+
+          <!-- <div class="dropdown dropdown-right">
+            <div tabindex="0" role="button" class="btn m-1">•••</div>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1  p-2 shadow-sm">
+              <li>
+
+                <button class="btn btn-xs btn-outline" (click)="desactivarSereno(sereno)">
+                  {{ sereno.active ? 'Desactivar' : 'Activar' }}
+                </button>
+              </li>
+              <li>
+
+                <button class="btn btn-xs btn-info" (click)="verSereno(sereno)">
+                  Ver
+                </button>
+              </li>
+              <li>
+
+                <button class="btn btn-xs btn-warning" (click)="editarSereno(sereno)">
+                  Editar
+                </button>
+              </li>
+
+              <li>
+                <button class="btn btn-xs btn-error" (click)="eliminarSereno(sereno.id)">
+                  Eliminar
+                </button>
+              </li>
+            </ul>
+          </div> -->
+
+
+        </td>
+      </tr>
+      }
+
+    </tbody>
+
+
+  </table>
+
+  <!-- Paginador -->
+  <div class="sticky bottom-0 z-10  flex items-center justify-between px-4 mt-6 mb-4 text-sm text-white shadow-sm">
+    <div class="bottom-0 z-10">
+      Página {{ currentPage }} de {{ totalPages }}
+    </div>
+
+    <div class="join">
+      <button class="join-item btn btn-sm" [disabled]="currentPage === 1" (click)="prevPage()">«</button>
+
+      @for (page of [].constructor(totalPages); track $index) {
+      <button class="join-item btn btn-sm" [class.btn-active]="page + 1 === currentPage" (click)="goToPage(page + 1)">
+        {{ currentPage }}
+      </button>
+      }
+
+      <button class="join-item btn btn-sm" [disabled]="currentPage === totalPages" (click)="nextPage()">»</button>
+    </div>
+  </div>
+
+
+</div>
+
+
+<!-- Footer -->
+<div class="flex justify-between items-center mt-4">
+  <button class="btn btn-outline btn-info">Download CSV</button>
+  <p class="text-sm text-gray-400">Total users: {{serenos.length}}</p>
+</div>

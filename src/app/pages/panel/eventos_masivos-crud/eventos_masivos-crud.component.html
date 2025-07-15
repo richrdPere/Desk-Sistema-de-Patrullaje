@@ -1,39 +1,145 @@
-<div class="p-6 space-y-6">
-  <h2 class="text-2xl font-bold text-warning">Gestión de Eventos Masivos</h2>
+<div class="space-y-4">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-4 text-gray-800">
+    <h1 class="text-2xl font-bold">Operaciones en Conjunto</h1>
+    <button class="btn btn-primary" onclick="my_modal_1.showModal()">
+      + Agregar nueva operación
+    </button>
+  </div>
 
-  <!-- Formulario -->
-  <form class="card bg-base-100 shadow p-6 space-y-4">
-    <div class="grid md:grid-cols-2 gap-4">
-      <input type="text" placeholder="Nombre del Evento" class="input input-bordered w-full" />
-      <input type="datetime-local" class="input input-bordered w-full" />
-      <input type="text" placeholder="Ubicación" class="input input-bordered w-full" />
-      <textarea placeholder="Detalles / Observaciones" class="textarea textarea-bordered md:col-span-2"></textarea>
+  <hr class="border-gray-300" />
+
+  <!-- Modal dialog -->
+  <dialog id="my_modal_1" class="modal">
+    <div class="modal-box text-white bg-gray-800">
+      <h3 class="text-xl font-bold mb-4">Registro de Vehiculos</h3>
+
+      <!-- Sección: Datos -->
+      <div class="mb-6">
+
+        <!-- Formulario -->
+        <form [formGroup]="operacionForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Actividad -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Actividad</span>
+            </label>
+            <input type="text" formControlName="actividad" placeholder="Tu actividad"
+              class="input input-bordered w-full" />
+          </div>
+
+          <!-- Descripcion -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Descripcion</span>
+            </label>
+            <input type="text" formControlName="descripcion" placeholder="Tu descripción"
+              class="input input-bordered w-full" />
+          </div>
+
+          <!-- Lugar -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Lugar</span>
+            </label>
+            <input type="text" formControlName="lugar" placeholder="Lugar desginado"
+              class="input input-bordered w-full" />
+          </div>
+
+          <!-- Nombre Entidad -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Entidad/Institución</span>
+            </label>
+            <input type="text" formControlName="nombreEntidad" placeholder="Nombre de la entidad"
+              class="input input-bordered w-full" />
+          </div>
+
+          <!-- Fecha -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Fecha</span>
+            </label>
+            <input type="datetime-local" formControlName="fecha" placeholder="" class="input input-bordered w-full" />
+          </div>
+
+          <!-- Hora -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Hora</span>
+            </label>
+            <input type="text" formControlName="hora" placeholder="15:00" class="input input-bordered w-full" />
+          </div>
+
+
+        </form>
+
+        <!-- Botones -->
+        <div class="modal-action flex justify-end gap-4">
+          @if (!operacionSeleccionada) {
+          <button type="button" class="btn btn-primary" (click)="guardarOperacion()">Guardar Operación</button>
+          <form method="dialog">
+            <button class="btn btn-outline">Cerrar</button>
+          </form>
+          }@else {
+          <button type="button" class="btn btn-primary" (click)="guardarOperacion()">Actualizar Operación</button>
+          <form method="dialog">
+            <button class="btn btn-outline">Cerrar</button>
+          </form>
+          }
+
+        </div>
+
+      </div>
     </div>
-    <button type="submit" class="btn btn-warning">Registrar Evento</button>
-  </form>
+  </dialog>
 
   <!-- Tabla -->
-  <div class="overflow-x-auto">
+  <div
+    class="overflow-x-auto bg-gray-900 w-full sm:min-h-[300px] md:min-h-[450px] xl:min-h-[750px] rounded-2xl text-gray-300">
+
+    @if (operaciones.length > 0 ) {
     <table class="table table-zebra w-full">
       <thead>
         <tr>
-          <th>Evento</th>
+          <th>#</th>
+          <th>Actividad/Operación</th>
+          <th>Descripción</th>
           <th>Fecha</th>
-          <th>Ubicación</th>
-          <th>Acciones</th>
+          <th>Hora</th>
+          <th>Lugar</th>
+          <th>Institución</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
+        @for (operacion of operaciones; track $index) {
         <tr>
-          <td>Procesión Señor de los Temblores</td>
-          <td>2025-05-29 16:00</td>
-          <td>Centro Histórico</td>
-          <td class="flex gap-2">
-            <button class="btn btn-sm btn-warning">Editar</button>
-            <button class="btn btn-sm btn-error">Eliminar</button>
+          <td scope="row">{{ $index + 1 }}</td>
+          <td>{{operacion.actividad}}</td>
+          <td>{{operacion.descripcion}}</td>
+          <td>{{operacion.fecha}}</td>
+          <td>{{operacion.hora}}</td>
+          <td>{{operacion.lugar}}</td>
+          <td>{{operacion.nombreEntidad}}</td>
+          <td class="flex justify-start items-center gap-4">
+
+            <button class="btn btn-xs btn-warning" (click)="abrirModalEditarVehiculo(operacion)">
+              <img src="assets/icons/crud/edit.svg" alt="Icon Eliminar" class="w-5 h-5 " />
+            </button>
+
+            <button class="btn btn-xs btn-error" (click)="eliminarOperacion(operacion.id)">
+              <img src="assets/icons/crud/delete.svg" alt="Icon Eliminar" class="w-5 h-5 " />
+            </button>
           </td>
         </tr>
+        }
+
       </tbody>
     </table>
+    } @else {
+    <p>No hay Vehiculos Registrados</p>
+    }
+
   </div>
 </div>

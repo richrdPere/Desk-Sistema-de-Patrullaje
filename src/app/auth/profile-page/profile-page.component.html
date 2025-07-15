@@ -1,21 +1,25 @@
 <!-- Contenedor general con scroll -->
-<div class="max-h-[calc(100vh-5rem)] overflow-y-auto p-4 bg-base-100">
+<div class="max-h-[calc(100vh-5rem)] overflow-y-auto p-4 bg-base-100 border rounded-xl">
 
   <!-- Contenido principal centrado -->
-  <div class="max-w-5xl mx-auto space-y-6">
+  <div class="max-w-5xl mx-auto space-y-6 border rounded-xl ">
 
     <!-- Encabezado del perfil -->
     <div class="flex flex-col md:flex-row justify-between items-center gap-6 bg-white border rounded-xl p-6 shadow">
       <!-- Avatar y nombre -->
       <div class="flex items-center gap-4">
-        <div class="avatar">
+        <div class="avatar" (click)="abrirSelectorAvatar()">
           <div class="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            <img [src]="usuario.avatar || 'assets/img/default-avatar.png'" alt="Avatar del admin" />
           </div>
         </div>
+
+        <!-- Input de archivo oculto -->
+        <input type="file" #inputAvatar accept="image/*" class="hidden" (change)="onAvatarSeleccionado($event)" />
+
         <div>
-          <h2 class="text-xl font-bold text-gray-800">Musharof Chowdhury</h2>
-          <p class="text-sm text-gray-500">Team Manager · Arizona, United States</p>
+          <h2 class="text-xl font-bold text-gray-800">{{usuario.firstName}} {{usuario.lastName}}</h2>
+          <p class="text-sm text-gray-500">{{usuario.role}} - {{usuario.distrito}}</p>
         </div>
       </div>
 
@@ -35,29 +39,30 @@
     <div class="bg-white border rounded-xl p-6 shadow space-y-4">
       <div class="flex justify-between items-center">
         <h3 class="text-lg font-semibold text-gray-800">Información Personal</h3>
-        <button onclick="my_modal_4.showModal()" class="btn btn-outline btn-sm"><i class="fa fa-pen mr-1"></i> Editar</button>
+        <button onclick="my_modal_4.showModal()" class="btn btn-outline btn-sm"><i class="fa fa-pen mr-1"></i>
+          Editar</button>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <p class="text-sm text-gray-500">Nombres</p>
-          <p class="font-medium text-gray-800">Chowdhury</p>
+          <p class="font-medium text-gray-800">{{usuario.firstName}}</p>
         </div>
         <div>
           <p class="text-sm text-gray-500">Apellidos</p>
-          <p class="font-medium text-gray-800">Musharof</p>
+          <p class="font-medium text-gray-800">{{usuario.lastName}}</p>
         </div>
         <div>
           <p class="text-sm text-gray-500">Correo electrónico</p>
-          <p class="font-medium text-gray-800">randomuserApimjo.com</p>
+          <p class="font-medium text-gray-800">{{usuario.email}}</p>
         </div>
         <div>
           <p class="text-sm text-gray-500">Teléfono</p>
-          <p class="font-medium text-gray-800">+09 363 398 46</p>
+          <p class="font-medium text-gray-800">{{usuario.phone}}</p>
         </div>
         <div class="sm:col-span-2">
-          <p class="text-sm text-gray-500">Biografía</p>
-          <p class="font-medium text-gray-800">Team Manager</p>
+          <p class="text-sm text-gray-500">Fecha de Cumpleaños</p>
+          <p class="font-medium text-gray-800">{{usuario.birthdate}}</p>
         </div>
       </div>
     </div>
@@ -66,26 +71,27 @@
     <div class="bg-white border rounded-xl p-6 shadow space-y-4">
       <div class="flex justify-between items-center">
         <h3 class="text-lg font-semibold text-gray-800">Dirección</h3>
-        <button onclick="my_modal_4.showModal()" class="btn btn-outline btn-sm"><i class="fa fa-pen mr-1"></i> Editar</button>
+        <button onclick="my_modal_4.showModal()" class="btn btn-outline btn-sm"><i class="fa fa-pen mr-1"></i>
+          Editar</button>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <p class="text-sm text-gray-500">País</p>
-          <p class="font-medium text-gray-800">United States</p>
+          <p class="text-sm text-gray-500">Dirección</p>
+          <p class="font-medium text-gray-800">{{usuario.address}}</p>
         </div>
         <div>
-          <p class="text-sm text-gray-500">Ciudad/Estado</p>
-          <p class="font-medium text-gray-800">Arizona, United States.</p>
+          <p class="text-sm text-gray-500">Ciudad/Distrito</p>
+          <p class="font-medium text-gray-800">{{usuario.distrito}}</p>
         </div>
-        <div>
+        <!-- <div>
           <p class="text-sm text-gray-500">Código Postal</p>
           <p class="font-medium text-gray-800">ERT 2489</p>
         </div>
         <div>
           <p class="text-sm text-gray-500">TAX ID</p>
           <p class="font-medium text-gray-800">AS5468384</p>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -95,12 +101,46 @@
   <dialog id="my_modal_4" class="modal">
     <div class="modal-box w-11/12 max-w-5xl">
       <h3 class="text-lg font-bold">Editar perfil</h3>
+      <p class="py-2">Modifica los campos y guarda los cambios.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-gray-500">Nombres</label>
+          <input formControlName="usuarioEditable.firstName" class="input input-bordered w-full" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-500">Apellidos</label>
+          <input formControlName="usuarioEditable.lastName" class="input input-bordered w-full" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-500">Correo</label>
+          <input formControlName="usuarioEditable.email" class="input input-bordered w-full" type="email" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-500">Teléfono</label>
+          <input formControlName="usuarioEditable.phone" class="input input-bordered w-full" />
+        </div>
+        <div class="sm:col-span-2">
+          <label class="block text-sm text-gray-500">Dirección</label>
+          <input formControlName="usuarioEditable.address" class="input input-bordered w-full" />
+        </div>
+      </div>
+
+      <div class="modal-action">
+        <button class="btn btn-primary" (click)="guardarCambios()">Guardar</button>
+        <form method="dialog">
+          <button class="btn">Cancelar</button>
+        </form>
+      </div>
+    </div>
+    <!-- <div class="modal-box w-11/12 max-w-5xl">
+      <h3 class="text-lg font-bold">Editar perfil</h3>
       <p class="py-4">Aquí puedes modificar los datos del perfil.</p>
       <div class="modal-action">
         <form method="dialog">
           <button class="btn">Cerrar</button>
         </form>
       </div>
-    </div>
+    </div> -->
   </dialog>
 </div>

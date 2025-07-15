@@ -8,4 +8,12 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet, SideMenuComponent, NavbarMenuComponent],
   templateUrl: './dashboard-layout.component.html',
 })
-export default class DashboardLayoutComponent { }
+export default class DashboardLayoutComponent {
+
+  toggleDrawer() {
+    const drawerCheckbox = document.getElementById('menu-drawer') as HTMLInputElement;
+    drawerCheckbox.checked = !drawerCheckbox.checked;
+  }
+
+
+}

@@ -1,0 +1,214 @@
+<form [formGroup]="formUsers" class="modal-box text-white bg-gray-800">
+  <h3 class="text-xl font-bold mb-4">Registro de Usuario</h3>
+
+  <!-- Sección: Datos -->
+  <div class="mb-6">
+    <h4 class="text-lg font-semibold mb-3 text-blue-400">Datos Personales</h4>
+    <div class="flex flex-wrap gap-4">
+
+      <!-- ============================= -->
+      <!-- ========= Nombres =========== -->
+      <!-- ============================= -->
+      <div class="w-full md:w-[48%]">
+        <label for="firstName" class="block text-sm font-medium text-gray-300">Nombres</label>
+        <input formControlName="firstName" id="firstName" name="firstName" type="text" placeholder="Nombres"
+          class="input input-bordered w-full mt-1" />
+
+        @if (formUtils.isValidField(formUsers, 'firstName')) {
+        <div role="alert" class="alert alert-error alert-soft">
+          <span class="form-text text-danger">
+            El campo debe de tener nombres
+            <!-- {{formUtils.getFieldError(formUsers, "firstName")}} -->
+          </span>
+        </div>
+        }
+      </div>
+
+
+      <!-- =============================== -->
+      <!-- ========= Apellidos =========== -->
+      <!-- =============================== -->
+      <div class="w-full md:w-[48%]">
+        <label for="lastName" class="block text-sm font-medium text-gray-300">Apellidos</label>
+        <input formControlName="lastName" id="lastName" name="lastName" type="text" placeholder="Apellidos"
+          class="input input-bordered w-full mt-1" />
+
+        @if (formUtils.isValidField(formUsers, 'lastName')) {
+        <div role="alert" class="alert alert-error alert-soft">
+          <span class="form-text text-danger">
+            El campo debe de tener apellidos
+            <!-- {{formUtils.getFieldError(formUsers, "firstName")}} -->
+          </span>
+        </div>
+        }
+
+      </div>
+
+      <!-- ========================= -->
+      <!-- ========= DNI =========== -->
+      <!-- ========================= -->
+      <div class="w-full md:w-[48%]">
+        <label for="dni" class="block text-sm font-medium text-gray-300">DNI</label>
+        <input formControlName="dni" id="dni" name="dni" type="text" placeholder="DNI"
+          class="input input-bordered w-full mt-1" />
+
+        @if (formUtils.isValidField(formUsers, 'dni')) {
+        <div role="alert" class="alert alert-error alert-soft">
+          <span class="form-text text-danger">
+            <!-- El DNI debe tener exactamente 8 dígitos numéricos -->
+            {{formUtils.getFieldError(formUsers, "dni")}}
+          </span>
+        </div>
+        }
+      </div>
+
+
+      <!-- ============================= -->
+      <!-- ========= Celular =========== -->
+      <!-- ============================= -->
+      <div class="w-full md:w-[48%]">
+        <label for="phone" class="block text-sm font-medium text-gray-300">Celular</label>
+        <input formControlName="phone" id="phone" name="phone" type="text" placeholder="Celular"
+          class="input input-bordered w-full mt-1" />
+
+        @if (formUtils.isValidField(formUsers, 'phone')) {
+        <div role="alert" class="alert alert-error alert-soft">
+          <span class="form-text text-danger">
+            <!-- El DNI debe tener exactamente 8 dígitos numéricos -->
+            {{formUtils.getFieldError(formUsers, "phone")}}
+          </span>
+        </div>
+        }
+      </div>
+
+      <!-- ========================================= -->
+      <!-- ========= Fecha de nacimiento =========== -->
+      <!-- ========================================= -->
+      <div class="w-full md:w-[48%]">
+        <label for="birthdate" class="block text-sm font-medium text-gray-300">Fecha de Nacimiento</label>
+        <input formControlName="birthdate" id="birthdate" name="birthdate" type="date"
+          class="input input-bordered w-full mt-1" />
+
+        @if (formUtils.isValidField(formUsers, 'birthdate')) {
+        <div role="alert" class="alert alert-error alert-soft">
+          <span class="form-text text-danger">
+            <!-- El DNI debe tener exactamente 8 dígitos numéricos -->
+            {{formUtils.getFieldError(formUsers, "birthdate")}}
+          </span>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección: Cuenta -->
+  <div class="mb-6">
+    <h4 class="text-lg font-semibold mb-3 text-orange-400">Datos de la Cuenta</h4>
+    <div class="flex flex-wrap gap-4">
+
+
+      <!-- =========================== -->
+      <!-- ========= Email =========== -->
+      <!-- =========================== -->
+      <div class="w-full md:w-[48%]">
+        <label for="email" class="block text-sm font-medium text-gray-300">Email</label>
+        <input formControlName="email" id="email" name="email" type="email" placeholder="Correo electrónico"
+          class="input input-bordered w-full mt-1" />
+
+        @if (formUtils.isValidField(formUsers, 'email')) {
+        <div role="alert" class="alert alert-error alert-soft">
+          <span class="form-text text-danger">
+            <!-- El valor ingresado no parece un correo electronico -->
+            {{formUtils.getFieldError(formUsers, "email")}}
+          </span>
+        </div>
+        }
+      </div>
+
+
+      <!-- ============================== -->
+      <!-- ========= Username =========== -->
+      <!-- ============================== -->
+      <div class="w-full md:w-[48%]">
+        <label for="username" class="block text-sm font-medium text-gray-300">Usuario</label>
+        <input formControlName="username" id="username" name="username" type="text" placeholder="Username"
+          class="input input-bordered w-full mt-1" />
+      </div>
+
+      <!-- ============================== -->
+      <!-- ========= Password =========== -->
+      <!-- ============================== -->
+      <div class="w-full md:w-[48%] relative">
+        <label for="password" class="block text-sm font-medium text-gray-300">Contraseña</label>
+
+        <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="password" name="password"
+          placeholder="Contraseña" class="input input-bordered w-full mt-1 pr-10" />
+
+        <button type="button" (click)="togglePasswordVisibility()"
+          class="absolute top-[2.3rem] right-2 text-gray-500 hover:text-white">
+
+          @if (!showPassword) {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+          </svg>
+          } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13.875 18.825A10.05 10.05 0 0112 19c-4.477 0-8.268-2.943-9.542-7a9.974 9.974 0 012.697-4.043M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />
+          </svg>
+          }
+
+        </button>
+      </div>
+
+      <!-- <div class="w-full md:w-[48%] relative">
+        <label for="password" class="block text-sm font-medium text-gray-300">Contraseña</label>
+        <input formControlName="password" id="password" name="password" type="password" placeholder="Contraseña"
+          class="input input-bordered w-full mt-1" />
+      </div> -->
+
+      <!-- ================================= -->
+      <!-- ========= Select Role =========== -->
+      <!-- ================================= -->
+      <div class="w-full md:w-[48%]">
+        <label for="password" class="block text-sm font-medium text-gray-300">Role:</label>
+        <select formControlName="role" class="select select-primary w-full mt-1">
+          <option value="" disabled selected>-- Seleccione un Rol --</option>
+          @for (rol of roles; track $index) {
+          <option [value]="rol.rol">
+            {{ rol.rol }}
+          </option>
+          }
+        </select>
+      </div>
+      <!-- Confirmación -->
+      <!-- <div class="w-full md:w-[48%]">
+        <label for="password_confirmation" class="block text-sm font-medium text-gray-300">Confirmar Contraseña</label>
+        <input formControlName="password2" id="password_confirmation" name="password_confirmation" type="password" placeholder="repita contraseña"
+          class="input input-bordered w-full mt-1" />
+      </div> -->
+    </div>
+  </div>
+
+  <!-- Botones -->
+  <div class="modal-action flex justify-end gap-4">
+    <button class="btn btn-primary" (click)="onSave()" id="my_modal_7">Crear cuenta</button>
+    <form method="dialog">
+      <button class="btn btn-outline">Cerrar</button>
+    </form>
+
+    <!-- 2do modal-->
+    <input type="checkbox" id="my_modal_7" class="modal-toggle" />
+    <div class="modal" role="dialog">
+      <div class="modal-box">
+        <h3 class="text-lg font-bold">Hello!</h3>
+        <p class="py-4">This modal works with a hidden checkbox!</p>
+      </div>
+      <label class="modal-backdrop" for="my_modal_7">Close</label>
+    </div>
+  </div>
+</form>

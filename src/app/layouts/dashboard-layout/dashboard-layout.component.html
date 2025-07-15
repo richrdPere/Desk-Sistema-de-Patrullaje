@@ -1,61 +1,46 @@
-<!-- <div
-  class="flex overflow-y-scroll w-screen h-screen antialiased text-slate-300 selection:bg-blue-600 selection:text-white">
+<!-- NUEVO LAYOUT -->
 
+<div class="navbar bg-gray-900 shadow-sm">
+  <div class="navbar-start">
+    <!-- sidebar  -->
+    <div class="drawer">
+      <input id="my-drawer" type="checkbox" class="drawer-toggle " />
+      <div class="drawer-content">
 
-  <side-menu />
-
-  <div class="flex-col flex-1 w-screen h-screen bg-gray-300">
-
-
-    <navbar-menu />
-    <div class="p-6 text-black ">
-      <div class="rounded-xl shadow p-4 bg-white">
-        <router-outlet />
-      </div>
-    </div>
-
-  </div>
-</div> -->
-
-<!-- Layout principal con drawer responsivo -->
-<div class="drawer lg:drawer-open h-screen w-screen">
-  <input id="menu-drawer" type="checkbox" class="drawer-toggle" />
-
-  <!-- Contenido principal -->
-  <div class="drawer-content flex flex-col h-screen bg-gray-100">
-
-    <!-- Navbar -->
-    <div class="w-full navbar dark:bg-gray-900 shadow-md sticky top-0 z-50">
-      <!-- Botón para abrir el drawer en móvil -->
-      <div class="flex-none lg:hidden">
-        <label for="menu-drawer" class="btn btn-square btn-ghost">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <label for="my-drawer" class="btn btn-primary drawer-button ml-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </label>
       </div>
-      <div class="flex-1 px-2 font-bold text-xl text-gray-800">
 
-      </div>
-      <navbar-menu />
-    </div>
+      <div class="drawer-side">
+        <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 
-    <!-- Contenedor del contenido principal -->
-    <div class="p-4 overflow-y-auto flex-1">
-      <div class="bg-white text-black rounded-xl shadow p-6 min-h-full">
-        <router-outlet />
+        <aside class="menu w-64 min-h-full dark:bg-gray-900 text-base-content">
+          <side-menu />
+        </aside>
       </div>
     </div>
   </div>
 
-  <!-- Sidebar (drawer side) -->
-  <div class="drawer-side">
-    <label for="menu-drawer" class="drawer-overlay"></label>
-    <aside class="menu w-64 min-h-full dark:bg-gray-900 text-base-content">
-      <side-menu />
-    </aside>
+  <!-- Título u otro contenido de la navbar -->
+  <div class="navbar-center font-bold text-xl text-gray-300">
+    <!-- Puedes poner el título de tu app aquí -->
+
+    <img src="https://tailwindflex.com/images/logo.svg" alt="Logo" class="h-8 w-auto">
+    <span class="text-xl font-bold">Sistema Patrullaje - MUNICIPALIDAD DEL CUSCO</span>
+  </div>
+
+  <!-- Menú de usuario u otros íconos -->
+  <div class="navbar-end">
+    <navbar-menu />
   </div>
 </div>
 
+<!-- Contenedor del contenido principal -->
+<div class="flex-1 p-4 min-h-[calc(100vh-4rem)] lg:min-h-[calc(100vh-5rem)]">
+  <div class="bg-white text-black rounded-xl shadow p-4 lg:p-6 min-h-full">
+    <router-outlet />
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<div class="p-4 space-y-6" [formGroup]="asignacionForm">
+  <!-- Título -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <h2 class="text-2xl font-bold text-gray-800">Asignación de Rutas de Patrullaje</h2>
+    <button class="btn btn-primary">Asignar Ruta</button>
+  </div>
+
+  <!-- Formulario -->
+  <form [formGroup]="asignacionForm" (ngSubmit)="asignarRuta()" class="card bg-gray-100 shadow-md p-6 space-y-6">
+
+    <!-- Contenedor responsivo -->
+    <div class="flex flex-col lg:flex-row gap-6 w-full">
+
+      <!-- Lado 1: Datos generales -->
+      <div class="card bg-gray-300 rounded-box p-6 flex-1">
+        <!-- Zona de Patrullaje -->
+        <div class="space-y-4">
+
+          <!-- Zona de Patrullaje -->
+          <div>
+            <label class="label">
+              <span class="label-text font-medium">Zona de Patrullaje</span>
+            </label>
+            <select formControlName="zonaId" class="select select-bordered w-full bg-white">
+              <option disabled selected>Seleccionar zona</option>
+              @for (zona of zonas; track $index) {
+              <option value={{zona.id}}>{{ zona.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Turno -->
+          <div>
+            <label class="label">
+              <span class="label-text font-medium">Turno</span>
+            </label>
+            <select formControlName="turno" class="select select-bordered w-full bg-white">
+              <option disabled selected>Seleccionar turno</option>
+              <option value="mañana">Turno Mañana (06:00 - 14:00)</option>
+              <option value="tarde">Turno Tarde (14:00 - 22:00)</option>
+              <option value="noche">Turno Noche (22:00 - 06:00)</option>
+            </select>
+          </div>
+
+          <!-- Fecha -->
+          <div>
+            <label class="label">
+              <span class="label-text font-medium">Fecha de Asignación</span>
+            </label>
+            <input type="date" formControlName="fecha" [min]="fechaMinima"
+              class="input input-bordered w-full bg-white" />
+          </div>
+
+          <!-- Botón Asignar -->
+          <div class="pt-4">
+            <button class="btn btn-success w-full md:w-auto" (click)="asignarRuta()">
+              <i class="fas fa-check mr-2"></i> Asignar Ruta
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lado 2: Selección de serenos -->
+      <div class="card bg-gray-300 rounded-box p-6 flex-1">
+        <!-- Serenos (múltiples) -->
+        <div class="space-y-4 w-full">
+          <label class="label">
+            <span class="label-text font-medium">Seleccionar Serenos</span>
+          </label>
+          <select formControlName="serenos" class="select select-bordered w-full bg-white h-[250px]" multiple>
+            @for (sereno of serenos; track $index) {
+            <option value={{sereno.id}} class="text-xl">{{ sereno.firstName }} {{ sereno.lastName }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón Asignar -->
+    <!-- <div class="pt-4">
+      <button class="btn btn-success w-full md:w-auto" (click)="asignarRuta()">
+        <i class="fas fa-check mr-2"></i> Asignar Ruta
+      </button>
+    </div> -->
+
+  </form>
+
+  <!-- Tabla de asignaciones actuales -->
+  <div class="overflow-x-auto">
+    <h3 class="text-lg font-semibold mb-2">Asignaciones Actuales</h3>
+    <table class="table table-zebra w-full text-sm">
+      <thead class="text-black">
+        <tr>
+          <th>Serenos</th>
+          <th>Zona</th>
+          <th>Turno</th>
+          <th>Fecha</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-500">
+        @for (asignacion of asignaciones; track $index) {
+        <tr>
+          <td>
+            <ul class="list-disc list-inside">
+              @for (serenoId of asignacion.serenos; track $index) {
+              <li>{{ getNombreSerenoById(serenoId) }}</li>
+              }
+            </ul>
+          </td>
+          <td>{{ getNombreZonaById(asignacion.zonaId) }}</td>
+          <td>{{ asignacion.turno }}</td>
+          <td>{{ asignacion.fecha | date }}</td>
+          <td>
+            <button class="btn btn-xs btn-error" (click)="eliminarAsignacion(asignacion.id)">Eliminar</button>
+          </td>
+        </tr>
+        }
+
+      </tbody>
+    </table>
+  </div>
+</div>

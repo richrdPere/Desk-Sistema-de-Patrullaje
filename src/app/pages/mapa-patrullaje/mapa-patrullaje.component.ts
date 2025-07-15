@@ -1,9 +1,13 @@
 
-import { Component, ElementRef, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, HostListener } from '@angular/core';
 import { Lugar } from 'src/app/interfaces/lugar';
 
 // Services
 import { GoogleMapsLoaderService } from 'src/app/services/google-maps-loader.service';
+import { ZonaService } from 'src/app/services/zona.service';
+
+// Interfaces
+import { ZonaPatrullaje } from '../../interfaces/zonaPatrullaje';
 
 @Component({
   selector: 'app-mapa-patrullaje',
@@ -13,7 +17,10 @@ import { GoogleMapsLoaderService } from 'src/app/services/google-maps-loader.ser
 export default class MapaPatrullajeComponent implements AfterViewInit {
 
   @ViewChild('map') mapaElement!: ElementRef;
+  @ViewChild('zonaPanel') zonaPanel!: ElementRef;
+
   map!: google.maps.Map;
+  panelVisible: boolean = true;
 
   marcadores: google.maps.Marker[] = [];
   infoWindows: google.maps.InfoWindow[] = [];
@@ -38,8 +45,16 @@ export default class MapaPatrullajeComponent implements AfterViewInit {
     }
   ];
 
-  constructor(private mapsLoader: GoogleMapsLoaderService) {
+  zonas: ZonaPatrullaje[] = [];
+  zonasVisibles: { [id: string]: boolean } = {};
+  poligonos: { [id: string]: google.maps.Polygon } = {};
+
+  constructor(
+    private mapsLoader: GoogleMapsLoaderService,
+    private _zonaService: ZonaService
+  ) {
     // this.mapsLoader.load(); // precarga silenciosa
+    this.panelVisible = false;
 
   }
 
@@ -51,6 +66,7 @@ export default class MapaPatrullajeComponent implements AfterViewInit {
   async ngAfterViewInit() {
     await this.mapsLoader.load();
     this.cargarMapa();
+    this.cargarZonas();
     this.mapaCargado = true;
   }
 
@@ -59,7 +75,7 @@ export default class MapaPatrullajeComponent implements AfterViewInit {
 
     const mapaOpciones: google.maps.MapOptions = {
       center: latLng,
-      zoom: 13,
+      zoom: 15,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
 
@@ -68,6 +84,83 @@ export default class MapaPatrullajeComponent implements AfterViewInit {
     for (const lugar of this.lugares) {
       this.agregarMarcador(lugar);
     }
+  }
+
+  cargarZonas(): void {
+    this._zonaService.obtenerZonas().subscribe(zonas => {
+      this.zonas = zonas;
+      // Inicializar visibilidad en false
+      // console.log(zonas);
+      zonas.forEach(zona => {
+        this.zonasVisibles[zona.id] = false;
+      });
+    });
+  }
+
+  toggleZona(zona: ZonaPatrullaje) {
+    const visible = this.zonasVisibles[zona.id];
+
+    if (visible) {
+      // Ocultar
+      if (this.poligonos[zona.id]) {
+        this.poligonos[zona.id].setMap(null);
+      }
+      this.zonasVisibles[zona.id] = false;
+    } else {
+      // Mostrar
+      const polygon = new google.maps.Polygon({
+        paths: zona.coordinates,
+        strokeColor: '#2196f3',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#2196f3',
+        fillOpacity: 0.35
+      });
+
+      polygon.setMap(this.map);
+      this.poligonos[zona.id] = polygon;
+      this.zonasVisibles[zona.id] = true;
+    }
+  }
+
+  mostrarPanel() {
+    this.panelVisible = true;
+  }
+
+  ocultarPanel() {
+    this.panelVisible = false;
+  }
+
+  // --------------------------
+  //  Lógica para arrastrar el panel
+  // --------------------------
+  private isDragging = false;
+  private offset = { x: 0, y: 0 };
+
+  @HostListener('document:mousedown', ['$event'])
+  onMouseDown(event: MouseEvent) {
+    if (!this.zonaPanel?.nativeElement.contains(event.target)) return;
+    this.isDragging = true;
+    this.offset = {
+      x: event.clientX - this.zonaPanel.nativeElement.getBoundingClientRect().left,
+      y: event.clientY - this.zonaPanel.nativeElement.getBoundingClientRect().top,
+    };
+  }
+
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    if (!this.isDragging) return;
+    const x = event.clientX - this.offset.x;
+    const y = event.clientY - this.offset.y;
+    const panel = this.zonaPanel.nativeElement as HTMLElement;
+    panel.style.left = `${x}px`;
+    panel.style.top = `${y}px`;
+    panel.style.right = 'auto'; // para evitar conflicto con right-4
+  }
+
+  @HostListener('document:mouseup')
+  onMouseUp() {
+    this.isDragging = false;
   }
 
   agregarMarcador(marcador: Lugar) {

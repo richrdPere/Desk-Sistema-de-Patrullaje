@@ -1,46 +1,244 @@
-<div class="p-6 space-y-6">
-  <h2 class="text-2xl font-bold text-success">Gestión de Vehículos</h2>
+<div class="space-y-4">
+  <!-- Header -->
+  <div class="flex justify-between items-center mb-4 text-gray-800">
+    <h1 class="text-2xl font-bold">Registro de Vehículo de Patrullaje</h1>
+    <button class="btn btn-primary" onclick="my_modal_1.showModal()">
+      + Agregar nuevo vehiculo
+    </button>
+  </div>
 
-  <!-- Formulario -->
-  <form class="card bg-base-100 shadow p-6 space-y-4">
-    <div class="grid md:grid-cols-2 gap-4">
-      <input type="text" placeholder="Placa del vehículo" class="input input-bordered w-full" />
-      <input type="text" placeholder="Modelo" class="input input-bordered w-full" />
-      <input type="text" placeholder="Tipo (Moto, Camioneta, etc.)" class="input input-bordered w-full" />
-      <select class="select select-bordered w-full">
-        <option disabled selected>Estado</option>
-        <option>Activo</option>
-        <option>En mantenimiento</option>
-      </select>
+  <hr class="border-gray-300" />
+
+  <!-- Modal dialog -->
+  <dialog id="my_modal_1" class="modal">
+    <div class="modal-box text-white bg-gray-800">
+      <h3 class="text-xl font-bold mb-4">Registro de Vehiculos</h3>
+
+      <!-- Sección: Datos -->
+      <div class="mb-6">
+
+        <!-- Formulario -->
+        <form [formGroup]="vehiculoForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Placa -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Placa</span>
+            </label>
+            <input type="text" formControlName="placa" placeholder="ABC-123" class="input input-bordered w-full" />
+          </div>
+
+          <!-- Marca -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Marca</span>
+            </label>
+            <input type="text" formControlName="marca" placeholder="Toyota, Nissan..."
+              class="input input-bordered w-full" />
+          </div>
+
+          <!-- Modelo -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Modelo</span>
+            </label>
+            <input type="text" formControlName="modelo" placeholder="Hilux 2022, Duster..."
+              class="input input-bordered w-full" />
+          </div>
+
+          <!-- Año -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Año</span>
+            </label>
+            <input type="number" formControlName="anio" placeholder="2020" class="input input-bordered w-full" />
+          </div>
+
+          <!-- Tipo de Vehículo -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Tipo de Vehículo</span>
+            </label>
+            <select formControlName="tipo" class="select select-bordered w-full">
+              <option value="" disabled selected>Vehículo</option>
+              <option value="Camioneta">Camioneta</option>
+              <option value="Motocicleta">Motocicleta</option>
+              <option value="Cuatrimoto">Cuatrimoto</option>
+            </select>
+          </div>
+
+          <!-- Estado -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Estado</span>
+            </label>
+            <select formControlName="estado" class="select select-bordered w-full">
+              <option value="" disabled selected>Estado</option>
+              <option value="Operativo">Operativo</option>
+              <option value="En mantenimiento">En mantenimiento</option>
+              <option value="Fuera de servicio">Fuera de servicio</option>
+            </select>
+          </div>
+
+          <!-- Uso -->
+          <div>
+            <label class="label">
+              <span class="label-text text-gray-300">Estado</span>
+            </label>
+            <select formControlName="uso" class="select select-bordered w-full">
+              <option value="" disabled selected>Uso</option>
+              <option value="Patrullaje">Patrullaje</option>
+              <option value="Supervisión">Supervisión</option>
+              <option value="Emergencia">Emergencia</option>
+            </select>
+          </div>
+        </form>
+
+        <!-- Botones -->
+        <div class="modal-action flex justify-end gap-4">
+          @if (!vehiculoSeleccionado) {
+          <button type="button" class="btn btn-primary" (click)="guardarVehiculo()">Guardar Datos</button>
+          <form method="dialog">
+            <button class="btn btn-outline">Cerrar</button>
+          </form>
+          }@else {
+          <button type="button" class="btn btn-primary" (click)="guardarVehiculo()">Actualizar Datos</button>
+          <form method="dialog">
+            <button class="btn btn-outline">Cerrar</button>
+          </form>
+          }
+
+        </div>
+
+      </div>
     </div>
-    <button type="submit" class="btn btn-success">Registrar Vehículo</button>
+  </dialog>
+
+  <!-- Filters -->
+  <!-- <div class="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4 text-white">
+
+
+    <select class="select select-bordered w-full">
+      <option value="" disabled selected>Vehículo</option>
+      <option value="Camioneta">Camioneta</option>
+      <option value="Motocicleta">Motocicleta</option>
+      <option value="Cuatrimoto">Cuatrimoto</option>
+    </select>
+
+
+    <select class="select select-bordered w-full">
+      <option value="" disabled selected>Estado</option>
+      <option value="Operativo">Operativo</option>
+      <option value="En mantenimiento">En mantenimiento</option>
+      <option value="Fuera de servicio">Fuera de servicio</option>
+    </select>
+
+  </div> -->
+  <form [formGroup]="filtroForm" class="flex flex-col md:flex-row gap-4 bg-gray-800 p-4 rounded-xl mb-4">
+
+    <!-- Tipo -->
+    <select formControlName="tipo" class="select select-bordered bg-gray-300 w-full md:w-1/3">
+      <option value="">Todos los tipos</option>
+      <option value="Camioneta">Camioneta</option>
+      <option value="Motocicleta">Motocicleta</option>
+      <option value="Cuatrimoto">Cuatrimoto</option>
+    </select>
+
+    <!-- Estado -->
+    <select formControlName="estado" class="select select-bordered bg-gray-300 w-full md:w-1/3">
+      <option value="">Todos los estados</option>
+      <option value="Operativo">Operativo</option>
+      <option value="En mantenimiento">En mantenimiento</option>
+      <option value="Fuera de servicio">Fuera de servicio</option>
+    </select>
+
+    <!-- Uso -->
+    <select formControlName="uso" class="select select-bordered bg-gray-300 w-full md:w-1/3">
+      <option value="">Todos los usos</option>
+      <option value="Patrullaje">Patrullaje</option>
+      <option value="Supervisión">Supervisión</option>
+      <option value="Emergencia">Emergencia</option>
+    </select>
+
+    <div class="flex flex-wrap gap-2 mt-2 md:mt-0">
+      <button type="button" class="btn btn-primary" (click)="filtrarVehiculos()">
+        Filtrar
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="limpiarFiltros()">
+        Limpiar
+      </button>
+    </div>
   </form>
 
-  <!-- Tabla -->
-  <div class="overflow-x-auto">
-    <table class="table table-zebra w-full">
+  <hr class="border-gray-500" />
+
+  <!-- Table -->
+  <div
+    class="overflow-x-auto bg-gray-900 w-full sm:min-h-[300px] md:min-h-[450px] xl:min-h-[750px] rounded-2xl text-gray-300">
+
+    @if (vehiculos.length > 0) {
+    <!-- Vehículo -->
+    <table class="table table-zebra">
+      <!-- head -->
       <thead>
         <tr>
-          <th>Placa</th>
-          <th>Modelo</th>
+          <th>#</th>
+          <th>Placa / Marca</th>
           <th>Tipo</th>
           <th>Estado</th>
+          <th>Uso</th>
           <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
+        @for (vehiculo of vehiculos; track $index) {
+        <!-- row 1 -->
         <tr>
-          <td>X5T-983</td>
-          <td>Hilux</td>
-          <td>Camioneta</td>
-          <td>Activo</td>
-          <td class="flex gap-2">
-            <button class="btn btn-sm btn-warning">Editar</button>
-            <button class="btn btn-sm btn-error">Eliminar</button>
+          <td scope="row">{{ $index + 1 }}</td>
+          <td>
+            <div class="flex items-center gap-3">
+              <div>
+                <div class="font-bold">{{ vehiculo.placa }} - <span class="text-blue-400">{{ vehiculo.marca }}</span>
+                </div>
+                <span class="badge badge-info text-white">{{ vehiculo.modelo }}</span>
+              </div>
+
+            </div>
+          </td>
+          <td>
+            {{vehiculo.tipo}}
+
+          </td>
+          <td>{{vehiculo.estado}}</td>
+          <td>{{vehiculo.uso}}</td>
+          <td class="flex justify-start items-center gap-4">
+
+            <button class="btn btn-xs btn-warning" (click)="abrirModalEditarVehiculo(vehiculo)">
+              <img src="assets/icons/crud/edit.svg" alt="Icon Eliminar" class="w-5 h-5 " />
+            </button>
+
+            <button class="btn btn-xs btn-error" (click)="eliminarVehiculo(vehiculo.id)">
+              <img src="assets/icons/crud/delete.svg" alt="Icon Eliminar" class="w-5 h-5 " />
+            </button>
           </td>
         </tr>
+        }
+
+
       </tbody>
+
     </table>
+
+    }
+    @else {
+    <p>No hay Vehiculos Registrados</p>
+    }
+
+
+  </div>
+
+  <!-- Footer -->
+  <div class="flex justify-between items-center mt-4">
+    <button class="btn btn-outline btn-info">Download CSV</button>
+    <p class="text-sm text-gray-400">Total users: 1867</p>
   </div>
 </div>
-

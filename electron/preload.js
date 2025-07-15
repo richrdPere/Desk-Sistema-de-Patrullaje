@@ -1,10 +1,9 @@
 const { contextBridge, ipcRenderer } = require("electron");
-const dotenv = require("dotenv");
 const path = require("path");
 
 // Asegurar la ruta correcta de `.env`
-const envPath = path.resolve(__dirname, "../.env");
-dotenv.config({ path: envPath });
+// const envPath = path.resolve(__dirname, "../");
+// dotenv.config({ path: envPath });
 
 contextBridge.exposeInMainWorld("electronAPI", {
   // Ejemplo de envío de datos al proceso principal
@@ -32,5 +31,5 @@ contextBridge.exposeInMainWorld("electronAPI", {
 
 // Exponer la API Key de Google Maps
 contextBridge.exposeInMainWorld("googleMapsConfig", {
-  apiKey: process.env.GOOGLE_MAPS_API_KEY || "Clave no encontrada", // Obtiene la clave desde las variables de entorno
+  apiKey: process.env.GOOGLE_MAPS_API_KEY || "AIzaSyAfgODid5cBNr3nkD289YVVoWKyn5Raqz0", // Obtiene la clave desde las variables de entorno
 });

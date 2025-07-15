@@ -32,13 +32,13 @@ export class SideMenuOptionsComponent {
     },
     {
       icon: 'fa-solid fa-users',
-      label: 'Gestion de Usuarios ',
+      label: 'Gestion de Serenos ',
       sublabel: 'Gestiona al personal de serenazgo',
       route: '/dashboard/usuarios',
     },
     {
       icon: 'fa-solid fa-car-side',
-      label: 'Zonas de Patrullaje',
+      label: 'Asignación de Rutas',
       sublabel: 'Gestióna zonas de patrullaje',
       route: '/dashboard/zonas_patrullaje',
     },
